@@ -2,7 +2,7 @@ from django.db import models
 
 
 class post(models.Model):
-    title = models.TextField(max_lenght= 60)
+    title = models.TextField(max_length=100)
     entry = models.TextField()
     dateOfEntry = models.DateTimeField(auto_now_add=True)
     dateOfUpdate = models.DateTimeField(auto_now=True)

@@ -1,8 +1,7 @@
 from pymongo import MongoClient
+from django.conf import settings
 
-def get_db_handle(db_name,host, port, username, password):
-
-    client = MongoClient(host=host, port=port, username=username, password=password)
-
-    db_handle = client['db_name']
+def get_db_handle():
+    client = MongoClient(settings.MONGO_URI)
+    db_handle = client.get_default_database()
     return db_handle, client

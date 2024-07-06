@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Blog
+from .models import post, image, comment
 from django.views.generic import ListView, DetailView
 from .utils import get_db_handle 
+from forms import PostForm, ImageForm, CommentForm
 
 
 def blog_posts(request):
@@ -21,6 +22,33 @@ def blog_posts(request):
 
 def create_blog_post(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'create_post.html', {'form':form})
+
+
+def post_list(request):
+    posts = post.objects.all()
+    return render(request, 'post_list.html', {'posts':posts})
+
+def update_post(request, pk):
+    post_instance = get_object_or_404(post, pk=pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post_instance)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = PostForm(instance=post_instance)
+    return render(request, 'update_post.html', {'form': form})
+
+def delete_post(request, primaryKey):
+    post_instance = get_object_or_404(post, primaryKey = primaryKey )
+    if request.method == 'POST':
+        post_instance.delete()
+        return redirect('post_list')
+    return render(request, 'confirm_delete.html', {'object': post_instance})

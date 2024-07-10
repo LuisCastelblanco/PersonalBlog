@@ -7,6 +7,8 @@ load_dotenv()
 
 MONGO_URI= os.getenv('MONGO_URI')
 
+SECRET_KEY= os.getenv('SECRET_KEY')
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,15 +22,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework'
-    'blog'
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',
+    'rest_framework',
+    'blog',
 ]
 
 MIDDLEWARE = [

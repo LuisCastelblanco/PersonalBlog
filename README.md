@@ -7,6 +7,7 @@ git clone PersonalBlog
 cd PersonalBlog
 
 *Create and Activate Virtual enviroment*
+cd PersonalBlog
 python -m venv myenv
 .\myenv\Scripts\Activate
 

@@ -16,6 +16,7 @@ class image(models.Model):
     dateOfUpdate = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.post.title
+    
 class comment(models.Model):
     post = models.ForeignKey(post, on_delete=models.CASCADE)
     name = models.TextField(max_length=100)

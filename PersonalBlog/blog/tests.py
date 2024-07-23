@@ -64,3 +64,4 @@ class CommentModelTest(TestCase):
             self.assertEqual(c.dateOfComment, "Test Content")
     
 
+

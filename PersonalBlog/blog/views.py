@@ -1,11 +1,11 @@
 from rest_framework import viewsets
 from .models import post, image, comment
 from .serializers import PostSerializer, ImageSerializer, CommentSerializer
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import Group
 from .forms import CustomerUserCreationForm
 from django.contrib.auth import authenticate,login
+from django.http import JsonResponse
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = post.objects.all()
     serializer_class = PostSerializer
@@ -18,6 +18,10 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = comment.objects.all()
     serializer_class = CommentSerializer
 
+from django.http import JsonResponse
+from django.contrib.auth import login, authenticate
+from .forms import CustomerUserCreationForm
+
 def register(request):
     if request.method == 'POST':
         form = CustomerUserCreationForm(request.POST)
@@ -27,7 +31,8 @@ def register(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('blog')
+            return JsonResponse({'redirect': 'blog'}, status=201)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
     else:
-        form = CustomerUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

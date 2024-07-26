@@ -57,5 +57,5 @@ class CommentModelTest(TestCase):
         
     def test_comment_dateOfComment(self):
         c = comment.objects.get(name="Test Name")
-        self.assertIsNotNone(c.dateOfComment)  # Assuming dateOfComment is not "Test Content"
+        self.assertIsNotNone(c.dateOfComment)  
 

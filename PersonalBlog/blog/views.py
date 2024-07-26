@@ -18,9 +18,6 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = comment.objects.all()
     serializer_class = CommentSerializer
 
-from django.http import JsonResponse
-from django.contrib.auth import login, authenticate
-from .forms import CustomerUserCreationForm
 
 def register(request):
     if request.method == 'POST':
